@@ -41,7 +41,7 @@ Blocked streams will be added to `blockList.json`. If you want to "unban" someon
 
 ## Add more channels/languages
 
-If you want to add another channel or language/tag you can do that by adding `<option>` elements into the `index.html`. For a new channel you can simply add them here: https://github.com/m1ga/twitch_search_dashboard/blob/master/index.html#L24-L27
+If you want to add another channel or language/tag you can do that by adding `<option>` elements into the `index.html`. For a new channel you can simply add them here: https://github.com/m1ga/twitch_search_dashboard/blob/master/index.html#L16-L19
 
 To add a new language/tag you will need to find the tag id on the twitch page. To do that you add the tag to a search and use the DevTools (F12) and select the tag:
 <img src="./img/add_tag.png"/><br>
