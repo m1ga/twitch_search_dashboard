@@ -1,7 +1,7 @@
 # Twitch search dashboard
 > Be the first viewer - say hi!
 
-<img src="screenshot.jpg"/><br/>
+<img src="./img/screenshot.jpg"/><br/>
 
 
 ## Features:
@@ -41,4 +41,9 @@ Blocked streams will be added to `blockList.json`. If you want to "unban" someon
 
 ## Add more channels/languages
 
-Simple add the channel name as an `<option>` to the channel selector
+If you want to add another channel or language/tag you can do that by adding `<option>` elements into the `index.html`. For a new channel you can simply add them here: https://github.com/m1ga/twitch_search_dashboard/blob/master/index.html#L24-L27
+
+To add a new language/tag you will need to find the tag id on the twitch page. To do that you add the tag to a search and use the DevTools (F12) and select the tag:
+<img src="./img/add_tag.png"/><br>
+search for `data-tag-filter` and add the value to the tag filter:
+Simple add the channel name as an `<option>` to the channel selector https://github.com/m1ga/twitch_search_dashboard/blob/master/index.html#L22-L26
