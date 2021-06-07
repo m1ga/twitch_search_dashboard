@@ -15,10 +15,10 @@
 	<link rel="stylesheet" type="text/css" href="./main.css" />
 	<link rel="stylesheet" type="text/css" href="./fonts/remixicon.css" />
 	<script src="socket.io.min.js"></script>
-
 </head>
 
 <body>
+	<h1>Twitch Search Dashboard</h1>
 	<nav>
 		<div class="select_wrapper">
 			<select id="topic" onchange="update()">
@@ -41,43 +41,55 @@
 		</div>
 		<button onclick="update();" id="update">update</button>
 	</nav>
+
+	<script id="template" type="x-tmpl-mustache">
+		{{#data}}
+			<div class="user_{{& username}} item">
+			<a target="_blank" href=" {{& link }} ">
+			<div class="img_container"><img loading="lazy" src="{{& img }} " class="{{& isPartner }} "/></div>
+			<div class="title"> {{ title }} </div>
+
+			<div class="infos"> {{ username }} ( {{ viewersCount }} )</div></a>
+			<div class="tags">
+				{{#tags}}
+			    <div> {{ localizedName }} </div>
+				{{/tags}}
+			</div>
+			<div class="block" onclick="blockUser(event, '{{username}}')"> <i class="ri-delete-bin-line"></i> </div>
+			</div>
+		{{/data}}
+	</script>
+
 	<div id="content"></div>
 	<button onclick="loadMore()" id="more">load more</button>
+
+	<div id="loader">
+		<div class="lds-dual-ring"></div>
+	</div>
 	<script>
 		var socket = io('http://127.0.0.1:3000');
+		var template = document.getElementById('template').innerHTML;
 
 		socket.on('data', function(obj) {
 			var output = "";
-			for (var i = 0; i < obj.data.length; ++i) {
-				var item = obj.data[i];
-				output += '<div class="user_' + item.username + ' item">';
-				output += '<a target="_blank" href="' + item.link + '">';
-				output += '<div class="img_container"><img loading="lazy" src="' + item.img + '" class="' + (item.isPartner ? "partner" : "") + '"/></div>';
-				output += '<div class="title">' + item.title + '</div>';
-
-				output += '<div class="infos">' + item.username + ' (' + item.viewersCount + ')</div></a>';
-				output += '<div class="tags">';
-				for (var t = 0; t < item.tags.length; ++t) {
-					output += "<div>" + item.tags[t].localizedName + "</div>";
-				}
-				output += '</div>';
-				output += '<div class="block" onclick="blockUser(event, \'' + item.username + '\')"> <i class="ri-delete-bin-line"></i> </div>'
-				output += '</div>';
-			}
-
+			var rendered = Mustache.render(template, obj);
 			if (obj.isAppend) {
-				document.getElementById("content").insertAdjacentHTML("beforeend", output);
+				document.getElementById("content").insertAdjacentHTML("beforeend", rendered);
 			} else {
-				document.getElementById("content").innerHTML = output;
+				document.getElementById("content").innerHTML = rendered;
 			}
-			if (obj.hasNextPage == false){
-				document.getElementById("more").style.display= "none";
+
+			if (obj.hasNextPage == false) {
+				document.getElementById("more").style.display = "none";
 			} else {
-				document.getElementById("more").style.display= "block";
+				document.getElementById("more").style.display = "block";
 			}
+
+			document.getElementById("loader").classList.remove("visible");
 		})
 
 		function update() {
+			document.getElementById("loader").classList.add("visible");
 			socket.emit("update", {
 				topic: document.getElementById("topic").value,
 				lang: document.getElementById("language").value,
@@ -86,6 +98,7 @@
 		}
 
 		function loadMore() {
+			document.getElementById("loader").classList.add("visible");
 			socket.emit("loadMore", {
 				topic: document.getElementById("topic").value,
 				lang: document.getElementById("language").value,
@@ -105,7 +118,7 @@
 		}
 		update();
 	</script>
-
+	<script src="mustache.js"></script>
 </body>
 
 </html>

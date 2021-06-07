@@ -8,6 +8,9 @@ const {
 	Server
 } = require("socket.io");
 const io = new Server(server);
+var blockList = [];
+var lastDate = "";
+const axios = require('axios');
 
 app.get('/', (req, res) => {
 	res.sendFile(__dirname + '/index.html');
@@ -17,15 +20,13 @@ server.listen(3000, () => {
 	console.log('Server listening on http://127.0.0.1:3000');
 });
 
-var blockList = [];
+
 var blockFile = fs.readFile("blockList.json", 'utf8', function(err, data) {
 	blockList = JSON.parse(data);
 	console.log("Blocked user count: " + blockList.length);
 });
 
-var lastDate = "";
 
-const axios = require('axios');
 app.use(express.static('public'));
 
 var customData = [{
@@ -116,8 +117,8 @@ async function collectData(data) {
 	})
 
 	return {
-		topic: topic,
-		data: objs
+		"topic": topic,
+		"data": objs
 	}
 }
 
@@ -137,12 +138,6 @@ io.on('connection', (socket) => {
 
 	socket.on('loadMore', (data) => {
 		console.log("get more data");
-
-		// customData[0].variables.cursor = Buffer.from(JSON.stringify({
-		// 	s: lastDate,
-		// 	d: false,
-		// 	t: true
-		// })).toString("base64");
 		collectData(data).then(function(data) {
 			data.isAppend = true;
 			data.hasNextPage = hasNextPage;
