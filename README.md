@@ -47,3 +47,13 @@ To add a new language/tag you will need to find the tag id on the twitch page. T
 <img src="./img/add_tag.png"/><br>
 search for `data-tag-filter` and add the value to the tag filter:
 Simple add the channel name as an `<option>` to the channel selector https://github.com/m1ga/twitch_search_dashboard/blob/master/index.html#L22-L26
+
+## Advise
+
+* be kind and respectful to the streamers! If you are the first in the chat: say hi!
+* if you see anything illegal or people are rude to the streamer be sure to report them! Check the <a href="https://www.twitch.tv/p/en/legal/community-guidelines/">Twitch Community guidelines</a>.
+* the script is just using the same search API as the webpage, nothing special.
+
+## Author
+
+You can watch me stream at https://www.twitch.tv/miga_/ from time to time. Mostly boring dev stuff like this ;-)
