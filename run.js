@@ -20,12 +20,14 @@ server.listen(3000, () => {
 	console.log('Server listening on http://127.0.0.1:3000');
 });
 
+if (fs.existsSync("blockList.json")) {
+	fs.readFile("blockList.json", 'utf8', function(err, data) {
+		blockList = JSON.parse(data);
+		console.log("Blocked user count: " + blockList.length);
+	});
+} else {
 
-var blockFile = fs.readFile("blockList.json", 'utf8', function(err, data) {
-	blockList = JSON.parse(data);
-	console.log("Blocked user count: " + blockList.length);
-});
-
+}
 
 app.use(express.static('public'));
 
@@ -67,9 +69,6 @@ async function getData(data) {
 
 					if (game.node.broadcaster && game.node.broadcaster.login) {
 						link = game.node.broadcaster.login;
-						// if (game.node.createdAt != undefined) {
-						// 	lastDate = Number((new Date(game.node.createdAt).getTime() / 1000));
-						// }
 						customData[0].variables.cursor = game.cursor;
 						if (blockList.indexOf(link) == -1) {
 							obj.push({
@@ -92,14 +91,11 @@ async function getData(data) {
 	return obj;
 }
 
-
-
-
 async function collectData(data) {
 	var topic = data.topic || "just chatting";
 	var order = "RECENT";
-	if (data.lang == "de") {
-		customData[0].variables.options.tags = ["9166ad14-41f1-4b04-a3b8-c8eb838c6be6"];
+	if (data.lang != "") {
+		customData[0].variables.options.tags = [data.lang];
 	} else {
 		customData[0].variables.options.tags = [];
 	}
