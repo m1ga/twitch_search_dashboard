@@ -20,19 +20,25 @@
 
 <body>
 	<nav>
-		<select id="topic" onchange="update()">
-			<option value="science & technology">science & technology</option>
-			<option value="just chatting">just chatting</option>
-		</select>
-		<select id="language" onchange="update()">
-			<option value="all">all</option>
-			<option value="de">german</option>
-		</select>
-		<select id="order" onchange="update()">
-			<option value="recent">recent</option>
-			<option value="high_low">high to low</option>
+		<div class="select_wrapper">
+			<select id="topic" onchange="update()">
+				<option value="science & technology">science & technology</option>
+				<option value="just chatting">just chatting</option>
+			</select>
+		</div>
+		<div class="select_wrapper">
+			<select id="language" onchange="update()">
+				<option value="all">all</option>
+				<option value="de">german</option>
+			</select>
+		</div>
+		<div class="select_wrapper">
+			<select id="order" onchange="update()">
+				<option value="recent">recent</option>
+				<option value="high_low">high to low</option>
 
-		</select>
+			</select>
+		</div>
 		<button onclick="update();" id="update">update</button>
 	</nav>
 	<div id="content"></div>
@@ -44,23 +50,30 @@
 			var output = "";
 			for (var i = 0; i < obj.data.length; ++i) {
 				var item = obj.data[i];
+				output += '<div class="user_' + item.username + ' item">';
+				output += '<a target="_blank" href="' + item.link + '">';
+				output += '<div class="img_container"><img loading="lazy" src="' + item.img + '" class="' + (item.isPartner ? "partner" : "") + '"/></div>';
+				output += '<div class="title">' + item.title + '</div>';
 
-				output += '<a target="_blank" href="' + item.link + '" class="user_' + item.username + ' item ' + (item.isPartner ? "partner" : "") + '">';
-				output += '<img loading="lazy" src="' + item.img + '"/><div class="title">' + item.title + '</div>';
-				output += '<div class="infos">' + item.username + ' (' + item.viewersCount + ')</div>';
+				output += '<div class="infos">' + item.username + ' (' + item.viewersCount + ')</div></a>';
 				output += '<div class="tags">';
 				for (var t = 0; t < item.tags.length; ++t) {
-					output += item.tags[t].localizedName + ", ";
+					output += "<div>" + item.tags[t].localizedName + "</div>";
 				}
 				output += '</div>';
 				output += '<div class="block" onclick="blockUser(event, \'' + item.username + '\')"> <i class="ri-delete-bin-line"></i> </div>'
-				output += '</a>';
+				output += '</div>';
 			}
 
 			if (obj.isAppend) {
 				document.getElementById("content").insertAdjacentHTML("beforeend", output);
 			} else {
 				document.getElementById("content").innerHTML = output;
+			}
+			if (obj.hasNextPage == false){
+				document.getElementById("more").style.display= "none";
+			} else {
+				document.getElementById("more").style.display= "block";
 			}
 		})
 

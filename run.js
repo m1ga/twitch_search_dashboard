@@ -3,6 +3,7 @@ const app = express();
 const http = require('http');
 const fs = require('fs');
 const server = http.createServer(app);
+var hasNextPage = true;
 const {
 	Server
 } = require("socket.io");
@@ -65,8 +66,10 @@ async function getData(data) {
 
 					if (game.node.broadcaster && game.node.broadcaster.login) {
 						link = game.node.broadcaster.login;
-
-						lastDate = Number((new Date(game.node.createdAt).getTime() / 1000));
+						// if (game.node.createdAt != undefined) {
+						// 	lastDate = Number((new Date(game.node.createdAt).getTime() / 1000));
+						// }
+						customData[0].variables.cursor = game.cursor;
 						if (blockList.indexOf(link) == -1) {
 							obj.push({
 								link: 'https://twitch.tv/' + link,
@@ -81,7 +84,7 @@ async function getData(data) {
 						}
 					}
 				});
-
+				hasNextPage = item.data.game.streams.pageInfo.hasNextPage;
 			}
 		});
 	});
@@ -127,6 +130,7 @@ io.on('connection', (socket) => {
 		console.log("update data");
 		customData[0].variables.cursor = null;
 		collectData(data).then(function(data) {
+			data.hasNextPage = hasNextPage;
 			io.emit('data', data)
 		})
 	});
@@ -134,14 +138,14 @@ io.on('connection', (socket) => {
 	socket.on('loadMore', (data) => {
 		console.log("get more data");
 
-		customData[0].variables.cursor = Buffer.from(JSON.stringify({
-			s: lastDate,
-			d: false,
-			t: true
-		})).toString("base64");
-
+		// customData[0].variables.cursor = Buffer.from(JSON.stringify({
+		// 	s: lastDate,
+		// 	d: false,
+		// 	t: true
+		// })).toString("base64");
 		collectData(data).then(function(data) {
 			data.isAppend = true;
+			data.hasNextPage = hasNextPage;
 			io.emit('data', data)
 		})
 	});
