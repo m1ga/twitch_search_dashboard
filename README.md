@@ -1,4 +1,4 @@
-# Twitch search dashboard
+# Twitch Search Dashboard
 > Be the first viewer - say hi!
 
 <img src="./img/screenshot.jpg"/><br/>
