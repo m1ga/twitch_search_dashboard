@@ -1,5 +1,5 @@
 {
-    "name": "Twitch Search Dashboard",
+    "name": "TwitchSearchDashboard",
     "version": "1.0.0",
     "description": "Twitch Search Dashboard",
     "main": "index.js",
