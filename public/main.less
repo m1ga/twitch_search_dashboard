@@ -1,5 +1,7 @@
 // out: main.css, compress: true
 @color_main: #ff6600;
+@color_nav: rgba(0,0,0,0.5);
+@color_bg: #222;
 
 * {
     box-sizing: border-box;
@@ -10,7 +12,7 @@
 body {
     padding: 0;
     margin: 0;
-    background-color: #222;
+    background-color: @color_bg;
     font-size: 14px;
 }
 
@@ -34,7 +36,7 @@ nav {
     // width: 100%;
     z-index: 10;
     padding: 5px;
-    background-color: rgba(0,0,0,0.5);
+    background-color: @color_nav;
 
     #update {
         background-color: @color_main;
@@ -44,6 +46,7 @@ nav {
         cursor: pointer;
         padding-left: 15px;
         padding-right: 15px;
+        transition: 0.25s all;
 
         &:hover {
             background-color: darken(@color_main, 10%);
@@ -111,6 +114,8 @@ nav {
             pointer-events: none;
         }
 
+
+
         .tags {
             width: 100%;
             margin-top: 5px;
@@ -129,17 +134,19 @@ nav {
 
         .img_container {
             overflow: hidden;
+            line-height: 0;
+            border: 2px solid @color_bg;
 
             img {
                 transition: 0.5s transform;
                 max-width: 100%;
                 width: 100%;
 
-                &.partner_true {
-                    border: 2px solid #00f;
-                }
-            }
 
+            }
+            &.partner_true {
+                border: 2px solid #00f;
+            }
             &:hover {
                 img {
                     transform: scale(1.05);
@@ -151,12 +158,25 @@ nav {
             width: 100%;
             color: #fff;
             padding: 2px;
-            font-size: 12px;
+
             font-weight: bold;
             margin-top: -20px;
             text-shadow: 2px 2px 0 #000, 2px 2px 4px #000;
             z-index: 10px;
             position: relative;
+
+            .user {
+                display: inline-block;
+                width: ~"calc(100% - 60px)";
+                font-size: 12px;
+            }
+
+            .date {
+                display: inline-block;
+                width: 55px;
+                text-align: right;
+                font-size: 12px;
+            }
         }
 
         .block {
@@ -192,6 +212,13 @@ nav {
     margin: 20px auto;
     font-size: 16px;
     padding: 10px 15px;
+    border: 0;
+    background-color: @color_main;
+    color: #fff;
+    transition: 0.25s all;
+    &:hover {
+        background-color: darken(@color_main, 10%);
+    }
 }
 
 #loader {

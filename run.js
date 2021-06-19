@@ -71,10 +71,20 @@ async function getData(data) {
 						link = game.node.broadcaster.login;
 						customData[0].variables.cursor = game.cursor;
 						if (blockList.indexOf(link) == -1) {
+
+							var tmpDate = new Date(game.node.createdAt);
+							var tmpH = (tmpDate.getHours() < 10) ? "0" + tmpDate.getHours() : tmpDate.getHours();
+							var tmpM = (tmpDate.getMinutes() < 10) ? "0" + tmpDate.getMinutes() : tmpDate.getMinutes();
+
+							var displayDate = tmpH + ":" + tmpM;
+							if (new Date().getTime() - tmpDate.getTime() < 60000) {
+								displayDate = "just now";
+							}
 							obj.push({
 								link: 'https://twitch.tv/' + link,
 								img: game.node.previewImageURL,
 								date: game.node.createdAt || 0,
+								displayDate: displayDate,
 								viewersCount: game.node.viewersCount,
 								username: link,
 								title: game.node.title,

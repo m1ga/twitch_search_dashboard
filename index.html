@@ -39,10 +39,15 @@
 		{{#data}}
 			<div class="user_{{& username}} item">
 			<a target="_blank" href=" {{& link }} ">
-			<div class="img_container"><img loading="lazy" src="{{& img }} " class="partner_{{& isPartner }} "/></div>
-			<div class="title"> {{ title }} </div>
+				<div class="img_container partner_{{& isPartner }}"><img loading="lazy" src="{{& img }} " width="313" height="176" alt="thumb"/></div>
+				<div class="title"> {{ title }} </div>
+				<div class="infos">
+					<div class="user">{{ username }} ({{ viewersCount }})</div>
+					<div class="date">{{ displayDate }}</div>
+				</div>
 
-			<div class="infos"> {{ username }} ( {{ viewersCount }} )</div></a>
+
+			</a>
 			<div class="tags">
 				{{#tags}}
 			    <div> {{ localizedName }} </div>
