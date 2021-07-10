@@ -137,10 +137,10 @@ async function collectData(data) {
 
 
 io.on('connection', (socket) => {
-	console.log('a user connected');
+	// console.log('a user connected');
 
 	socket.on('update', (data) => {
-		console.log("update data");
+		// console.log("update data");
 		customData[0].variables.cursor = null;
 		collectData(data).then(function(data) {
 			data.hasNextPage = hasNextPage;
@@ -149,7 +149,7 @@ io.on('connection', (socket) => {
 	});
 
 	socket.on('loadMore', (data) => {
-		console.log("get more data");
+		// console.log("get more data");
 		collectData(data).then(function(data) {
 			data.isAppend = true;
 			data.hasNextPage = hasNextPage;
@@ -158,7 +158,7 @@ io.on('connection', (socket) => {
 	});
 
 	socket.on('blockUser', (data) => {
-		console.log("block user: " + data.user);
+		// console.log("block user: " + data.user);
 		blockList.push(data.user);
 		fs.writeFile("blockList.json", JSON.stringify(blockList), function(err) {});
 	});
@@ -166,5 +166,5 @@ io.on('connection', (socket) => {
 
 
 io.sockets.on('connection', function(socket) {
-	console.log("connection");
+	// console.log("connection");
 });
