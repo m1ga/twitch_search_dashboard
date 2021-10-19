@@ -4,266 +4,284 @@
 @color_bg: #222;
 
 * {
-    box-sizing: border-box;
-    font-family: Arial;
-    font-size: 14px;
+  box-sizing: border-box;
+  font-family: Arial;
+  font-size: 14px;
 }
 
 body {
-    padding: 0;
-    margin: 0;
-    background-color: @color_bg;
-    font-size: 14px;
+  padding: 0;
+  margin: 0;
+  background-color: @color_bg;
+  font-size: 14px;
 }
 
 a {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 h1 {
-    color: #fff;
-    float: right;
-    font-size: 25px;
-    margin: 0;
-    padding: 0;
-    margin-top: 10px;
-    margin-right: 10px;
+  color: #fff;
+  float: right;
+  font-size: 25px;
+  margin: 0;
+  padding: 0;
+  margin-top: 10px;
+  margin-right: 10px;
 }
 
 nav {
-    position: fixed;
-    top: 0;
-    // width: 100%;
-    z-index: 10;
-    padding: 5px;
-    background-color: @color_nav;
+  position: fixed;
+  top: 0;
+  display: flex;
+  z-index: 10;
+  padding: 5px;
+  background-color: @color_nav;
+  align-items: center;
 
-    #update {
-        background-color: @color_main;
-        color: #fff;
-        border: 0;
-        height: 35px;
-        cursor: pointer;
-        padding-left: 15px;
-        padding-right: 15px;
-        transition: 0.25s all;
+  #update {
+    background-color: @color_main;
+    color: #fff;
+    border: 0;
+    height: 35px;
+    cursor: pointer;
+    padding-left: 15px;
+    padding-right: 15px;
+    transition: 0.25s all;
 
-        &:hover {
-            background-color: darken(@color_main, 10%);
-        }
+    &:hover {
+      background-color: darken(@color_main, 10%);
+    }
+  }
+
+  .select_wrapper {
+    position: relative;
+    margin-right: 5px;
+
+    select {
+      -moz-appearance: none;
+      -webkit-appearance: none;
+      appearance: none;
+      border: none;
+      height: 35px;
+      -moz-padding-start: calc(10px - 3px);
+      padding-left: 10px;
+      padding-right: 30px;
+      color: #000;
+      position: relative;
+      cursor: pointer;
     }
 
-    .select_wrapper {
-        position: relative;
-        display: inline-block;
-
-        select {
-            -moz-appearance: none;
-            -webkit-appearance: none;
-            appearance: none;
-            border: none;
-            height: 35px;
-            -moz-padding-start: calc(10px - 3px);
-            padding-left: 10px;
-            padding-right: 30px;
-            color: #000;
-            position: relative;
-            cursor: pointer;
-        }
-
-        &:after {
-            content: "";
-            position: absolute;
-            right: 10px;
-            top: 12px;
-            width: 8px;
-            height: 8px;
-            border-right: 1px solid #000;
-            border-bottom: 1px solid #000;
-            transform: rotate(45deg);
-            pointer-events: none;
-        }
+    &:after {
+      content: "";
+      position: absolute;
+      right: 10px;
+      top: 12px;
+      width: 8px;
+      height: 8px;
+      border-right: 1px solid #000;
+      border-bottom: 1px solid #000;
+      transform: rotate(45deg);
+      pointer-events: none;
     }
+  }
+
+  .autoUpdateBox {
+    text-align: center;
+
+    label {
+      font-size: 12px;
+    }
+
+    .update_time {
+      color: #fff;
+      font-size: 12px;
+
+      input {
+        font-size: 12px;
+        width: 35px;
+        text-align: center;
+      }
+    }
+  }
 }
 
 #content {
-    display: flex;
-    flex-wrap: wrap;
-    top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  top: 10px;
+  position: relative;
+  clear: both;
+
+  .item {
     position: relative;
-    clear: both;
+    display: inline-block;
+    width: 16.666%;
+    margin-bottom: 15px;
+    padding: 2px;
 
-    .item {
-        position: relative;
-        display: inline-block;
-        width: 16.666%;
-        margin-bottom: 15px;
-        padding: 2px;
-
-        .title {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: ~"calc(100% - 30px)";
-            color: #fff;
-            padding: 2px;
-            height: 30px;
-            overflow: hidden;
-            font-size: 12px;
-            background-color: rgba(0,0,0,0.5);
-            pointer-events: none;
-        }
-
-
-
-        .tags {
-            width: 100%;
-            margin-top: 5px;
-
-            div {
-                color: #fff;
-                padding: 5px 10px;
-                font-size: 10px;
-                background-color: #444;
-                border-radius: 20px;
-                display: inline-block;
-                margin-right: 2px;
-                margin-bottom: 2px;
-            }
-        }
-
-        .img_container {
-            overflow: hidden;
-            line-height: 0;
-            border: 2px solid @color_bg;
-
-            img {
-                transition: 0.5s transform;
-                max-width: 100%;
-                width: 100%;
-
-
-            }
-            &.partner_true {
-                border: 2px solid #00f;
-            }
-            &:hover {
-                img {
-                    transform: scale(1.05);
-                }
-            }
-        }
-
-        .infos {
-            width: 100%;
-            color: #fff;
-            padding: 2px;
-
-            font-weight: bold;
-            margin-top: -20px;
-            text-shadow: 2px 2px 0 #000, 2px 2px 4px #000;
-            z-index: 10px;
-            position: relative;
-
-            .user {
-                display: inline-block;
-                width: ~"calc(100% - 60px)";
-                font-size: 12px;
-            }
-
-            .date {
-                display: inline-block;
-                width: 55px;
-                text-align: right;
-                font-size: 12px;
-            }
-        }
-
-        .block {
-            position: absolute;
-            right: 2px;
-            width: 30px;
-            height: 30px;
-            background-color: #fff;
-            top: 0;
-            cursor: pointer;
-
-            i {
-                color: #000;
-                padding: 5px;
-                font-size: 18px;
-                display: block;
-            }
-
-            &:hover {
-                background-color: @color_main;
-
-                i {
-                    color: #fff;
-                }
-            }
-        }
+    .title {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: ~"calc(100% - 30px)";
+      color: #fff;
+      padding: 2px;
+      height: 30px;
+      overflow: hidden;
+      font-size: 12px;
+      background-color: rgba(0,0,0,0.5);
+      pointer-events: none;
     }
+
+    .tags {
+      width: 100%;
+      margin-top: 5px;
+
+      div {
+        color: #fff;
+        padding: 5px 10px;
+        font-size: 10px;
+        background-color: #444;
+        border-radius: 20px;
+        display: inline-block;
+        margin-right: 2px;
+        margin-bottom: 2px;
+      }
+    }
+
+    .img_container {
+      overflow: hidden;
+      line-height: 0;
+      border: 2px solid @color_bg;
+
+      img {
+        transition: 0.5s transform;
+        max-width: 100%;
+        width: 100%;
+      }
+
+      &.partner_true {
+        border: 2px solid #00f;
+      }
+
+      &:hover {
+        img {
+          transform: scale(1.05);
+        }
+      }
+    }
+
+    .infos {
+      width: 100%;
+      color: #fff;
+      padding: 2px;
+      font-weight: bold;
+      margin-top: -20px;
+      text-shadow: 2px 2px 0 #000, 2px 2px 4px #000;
+      z-index: 10px;
+      position: relative;
+
+      .user {
+        display: inline-block;
+        width: ~"calc(100% - 60px)";
+        font-size: 12px;
+      }
+
+      .date {
+        display: inline-block;
+        width: 55px;
+        text-align: right;
+        font-size: 12px;
+      }
+    }
+
+    .block {
+      position: absolute;
+      right: 2px;
+      width: 30px;
+      height: 30px;
+      background-color: #fff;
+      top: 0;
+      cursor: pointer;
+
+      i {
+        color: #000;
+        padding: 5px;
+        font-size: 18px;
+        display: block;
+      }
+
+      &:hover {
+        background-color: @color_main;
+
+        i {
+          color: #fff;
+        }
+      }
+    }
+  }
 }
 
 #more {
-    cursor: pointer;
-    display: block;
-    margin: 20px auto;
-    font-size: 16px;
-    padding: 10px 15px;
-    border: 0;
-    background-color: @color_main;
-    color: #fff;
-    transition: 0.25s all;
-    &:hover {
-        background-color: darken(@color_main, 10%);
-    }
+  cursor: pointer;
+  display: block;
+  margin: 20px auto;
+  font-size: 16px;
+  padding: 10px 15px;
+  border: 0;
+  background-color: @color_main;
+  color: #fff;
+  transition: 0.25s all;
+
+  &:hover {
+    background-color: darken(@color_main, 10%);
+  }
 }
 
 #loader {
-    transition: 0.15s all;
-    position: fixed;
-    background-color: rgba(0,0,0,0.5);
-    width: 100%;
-    height: 100%;
-    z-index: 100;
-    top: 0;
-    left: 0;
-    opacity: 0;
-    pointer-events: none;
+  transition: 0.15s all;
+  position: fixed;
+  background-color: rgba(0,0,0,0.5);
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  pointer-events: none;
 
-    &.visible {
-        opacity: 1;
+  &.visible {
+    opacity: 1;
+  }
+
+  .lds-dual-ring {
+    position: absolute;
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    top: ~"calc(50% - 15px)";
+    left: ~"calc(50% - 15px)";
+  }
+
+  .lds-dual-ring:after {
+    content: " ";
+    display: block;
+    width: 30px;
+    height: 30px;
+    margin: 8px;
+    border-radius: 50%;
+    border: 4px solid #fff;
+    border-color: #fff transparent #fff transparent;
+    animation: lds-dual-ring 1.2s linear infinite;
+  }
+  @keyframes lds-dual-ring {
+    0% {
+      transform: rotate(0deg);
     }
 
-    .lds-dual-ring {
-        position: absolute;
-        display: inline-block;
-        width: 30px;
-        height: 30px;
-        top: ~"calc(50% - 15px)";
-        left: ~"calc(50% - 15px)";
+    100% {
+      transform: rotate(360deg);
     }
-
-    .lds-dual-ring:after {
-        content: " ";
-        display: block;
-        width: 30px;
-        height: 30px;
-        margin: 8px;
-        border-radius: 50%;
-        border: 4px solid #fff;
-        border-color: #fff transparent #fff transparent;
-        animation: lds-dual-ring 1.2s linear infinite;
-    }
-    @keyframes lds-dual-ring {
-        0% {
-            transform: rotate(0deg);
-        }
-
-        100% {
-            transform: rotate(360deg);
-        }
-    }
+  }
 }

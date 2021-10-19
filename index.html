@@ -14,7 +14,7 @@
 	<nav>
 		<div class="select_wrapper">
 			<select id="topic" onchange="update()">
-				<option value="science & technology">science & technology</option>
+				<option value="Software and Game Development">Software and Game Development</option>
 				<option value="just chatting">just chatting</option>
 			</select>
 		</div>
@@ -30,11 +30,13 @@
 				<option value="recent">recent</option>
 				<option value="high_low">high to low</option>
 				<option value="low_high">low to high</option>
-
 			</select>
 		</div>
 		<button onclick="update();" id="update">update</button>
-		<input onchange="autoUpdate();" id="autoUpdate" type="checkbox" name="autoUpdate"/><label for="autoUpdate" style="color:#fff">auto update</label>
+		<div class="autoUpdateBox">
+			<input onchange="autoUpdate();" id="autoUpdate" type="checkbox" name="autoUpdate" /><label for="autoUpdate" style="color:#fff">auto update</label>
+			<div class="update_time"><input type="text" id="timeValue" value="10" onkeyup="onChange();"/> sec.</div>
+		</div>
 	</nav>
 
 	<script id="template" type="x-tmpl-mustache">
